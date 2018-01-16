@@ -1,0 +1,14 @@
+from string import maketrans
+
+rot13trans = maketrans('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm')
+ 
+  def rot13(text):
+    return text.translate(rot13trans)
+
+  def main():
+    txt =raw_input("Dwse to keimeno :")   
+    txt = rot13(txt)
+    print ('To keimeno se ROT13 EINAI:' ,txt)
+
+if __name__ == "__main__":
+    main()
