@@ -1,0 +1,36 @@
+import random
+sum=0
+
+for i in range(1000):
+    players = []
+    for k in range(100):
+        ran =random.sample(range(1,80),5)
+
+        if not (ran in players):
+            players.append(ran)
+            players.sort()
+
+   arithmoi = range(1,80)
+   random.shuffle(arithmoi)
+   bingo = arithmoi[:5]
+      niki=False
+      vhm=0
+    while niki==False:
+        vhm+=1
+
+        for arxi in players:
+            elegxos=0 
+
+            for num in arxi:
+                if num in bingo:
+                    elegxos+=1
+
+            if elegxos==5:
+                niki=True
+
+        bingo.append(arithmoi.pop())
+        sum+=vhm
+        
+sum=sum/1000
+
+print ('O Mesos oros einai:', sum)
