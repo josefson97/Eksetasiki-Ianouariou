@@ -1,23 +1,22 @@
+
 def cdc(i):
- t = i % 10
- if t > 5: i += 10
- return i - t
+    t = i % 10
+    if t > 5: i += 10
+    return i - t
 
-   def StrToBrf(v):
-      s = 10 * '+' + '['
-      t = ""
+def StrToBrf(v):
+    s = 10 * '+' + '['
+    t = ""
 
-      for i in range(len(v)):
-         i_ord = ord(v[i])
-         i_cdc = cdc(ord(v[i]))
-         i_max = 256 - i_ord
-         s += '>' + ('-' * i_max if (i_max < 128) else '+' * (i_cdc // 10))
-         t += '>' + ('+' if (i_ord - i_cdc > 0) else '-') * abs(i_ord - i_cdc)
-         s += '<' * len(v) + '-]' + t + (len(v) - 1) * '<' + '[.>]'
+    for i in range(len(v)):
+        i_ord = ord(v[i])
+        i_cdc = cdc(ord(v[i]))
+        i_max = 256 - i_ord
+        s += '>' + ('-' * i_max if (i_max < 128) else '+' * (i_cdc // 10))
+        t += '>' + ('+' if (i_ord - i_cdc > 0) else '-') * abs(i_ord - i_cdc)
+    s += '<' * len(v) + '-]' + t + (len(v) - 1) * '<' + '[.>]'
+    return s
 
-        return s
-
-  
-  text =raw_input("Dwse to keimeno gia metafrasi se BRAINFUCK!! :") 
-  text = StrToBrf(text)
- print '!!BRAINFUCK!!:' ,text
+text =raw_input("Dwse to keimeno gia metafrasi se BRAINFUCK!! :") 
+text = StrToBrf(text)
+print '!!BRAINFUCK!!:' ,text
