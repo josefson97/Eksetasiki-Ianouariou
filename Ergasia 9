@@ -1,22 +1,67 @@
 
-def cdc(i):
-    t = i % 10
-    if t > 5: i += 10
-    return i - t
+from __future__ import print_function
 
-def StrToBrf(v):
-    s = 10 * '+' + '['
-    t = ""
+def bf(src, left, right, data, idx):
+    
+    if len(src) == 0: return
+    if left < 0: left = 0
+    if left >= len(src): left = len(src) - 1
+    if right < 0: right = 0
+    if right >= len(src): right = len(src) - 1
+      
+    arr = [0] * 30000
+    ptr = 0
+    i = left
+    while i <= right:
+        s = src[i]
+        if s == '>':
+            ptr += 1
+            
+            if ptr >= len(arr):
+                ptr = 0
+        elif s == '<':
+            ptr -= 1
+            
+            if ptr < 0:
+                ptr = len(arr) - 1
+        elif s == '+':
+            arr[ptr] += 1
+        elif s == '-':
+            arr[ptr] -= 1
+        elif s == '.':
+            print(chr(arr[ptr]), end="")
+        elif s == ',':
+            if idx >= 0 and idx < len(data):
+                arr[ptr] = ord(data[idx])
+                idx += 1
+            else:
+                arr[ptr] = 0 
+        elif s =='[':
+            if arr[ptr] == 0:
+                loop = 1
+                while loop > 0:
+                    i += 1
+                    c = src[i]
+                    if c == '[':
+                        loop += 1
+                    elif c == ']':
+                        loop -= 1
+        elif s == ']':
+            loop = 1
+            while loop > 0:
+                i -= 1
+                c = src[i]
+                if c == '[':
+                    loop -= 1
+                elif c == ']':
+                    loop += 1
+            i -= 1
+        i += 1
 
-    for i in range(len(v)):
-        i_ord = ord(v[i])
-        i_cdc = cdc(ord(v[i]))
-        i_max = 256 - i_ord
-        s += '>' + ('-' * i_max if (i_max < 128) else '+' * (i_cdc // 10))
-        t += '>' + ('+' if (i_ord - i_cdc > 0) else '-') * abs(i_ord - i_cdc)
-    s += '<' * len(v) + '-]' + t + (len(v) - 1) * '<' + '[.>]'
-    return s
+if __name__ == "__main__":
+    src = raw_input("give text translated to Brainfuck:")
+print ("Ops, the text means:")
+print (20*"|")
+print (20*"V")
+bf(src, 0, len(src) - 1, "", 0)
 
-text =raw_input("Dwse to keimeno gia metafrasi se BRAINFUCK!! :") 
-text = StrToBrf(text)
-print '!!BRAINFUCK!!:' ,text
