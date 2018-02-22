@@ -1,0 +1,58 @@
+import urllib2
+import json
+import datetime
+
+
+cur_date=datetime.datetime.now().strftime("%d")
+numbers = []
+num=int(input("dose 1 arithmo,1:"))
+numbers.append(num)
+num=int(input("dose 2 arithmo,2:"))
+numbers.append(num)
+num=int(input("dose 3 arithmo,3:"))
+numbers.append(num)
+num=int(input("dose 4 arithmo,4:"))
+numbers.append(num)
+num=int(input("dose 5 arithmo,5:"))
+numbers.append(num)
+num=int(input("dose 6 arithmo,6:"))
+numbers.append(num)
+num=int(input("dose 7 arithmo,7:"))
+numbers.append(num)
+num=int(input("dose 8 arithmo,8:"))
+numbers.append(num)
+num=int(input("dose 9 arithmo,9:"))
+numbers.append(num)
+num=int(input("dose 10 arithmo,10:"))
+numbers.append(num)
+nums=0
+day = []
+for k in range(0, int(cur_date)):
+    day.append(0)
+for i in  range(1,int(cur_date)+1):
+    cur_month=datetime.datetime.now().strftime("%m")
+    cur_year=datetime.datetime.now().strftime("%y")
+    main_url='http://applications.opap.gr/DrawsRestServices/kino/drawDate/'
+    url=main_url+str(i)+"-"+str(cur_month)+"-"+str(cur_year)+".json"
+    req = urllib2.Request(url)
+    response = urllib2.urlopen(req)
+    data = response.read()
+    data=json.loads(data)
+    for j in data['draws']['draw']:
+            for o in range (0,10):
+                for n in range (0, 20):
+                    if (j['results'][n] == numbers [o]):
+                        nums = nums + 1
+            if nums >= 4:
+                day[i-1]= day[i-1] + 1
+            nums=0   
+    success = max(day)
+    flag=0
+    i=0
+    while flag==0:
+                            if success==day[i]:
+                                flag=i+ day[i]
+                            i+=1
+
+print 20*"-"
+print (str(flag)+"η μέρα.")                                                                                                                         
